@@ -1,9 +1,5 @@
-# ECHO Web 1.2
+# ECHO 1.4
 
-Личные чаты, голосовые звонки внутри открытого приложения и каналы.
+Orange messenger for web, Android and Windows. Chats, channels, groups, friend codes, voice calls, profiles, emoji and attachments.
 
-Ссылки каналов: https://rtyty587-cpu.github.io/echo-messenger-web/?channel=КОД
-
-Для подписки войдите в аккаунт и подтвердите «Добавить канал». Создатель назначает администраторов по коду друга. Публикуют только создатель и назначенные админы. До 1000 участников и 20 админов на канал в этой версии; показываются последние 200 публикаций.
-
-Перед использованием необходимо настроить Firebase Authentication и правила Firestore. Правила для каналов пока не опубликованы: консоль проекта возвращала ошибку загрузки. Клиентские ограничения не заменяют серверные правила. Файлы сайта используют тот же проект Firebase, что APK и EXE. Ключи подписи и серверные учётные данные здесь отсутствуют.
+Files are limited to 512 KiB; large photos are compressed locally. No background call notifications. Firebase Authentication and Firestore are shared by all clients. Deploy the matching firestore.rules from the application source before using groups and attachments.
