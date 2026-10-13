@@ -1,0 +1,12 @@
+.typingRow{display:flex;align-items:center;gap:9px;clear:both;padding:10px 6px;color:var(--muted,#b6a89d);font-size:12px;min-height:36px;flex-shrink:0}
+.typingRow[hidden],.waitingGame[hidden],.snakePlay[hidden]{display:none!important}
+.typingDots{display:flex;gap:4px;align-items:center;padding:10px 12px;border:1px solid #ff9b3933;background:#ff8c0012;border-radius:18px}
+.typingDots i{width:5px;height:5px;border-radius:50%;background:#ff9a36;animation:echoTyping 1.2s ease-in-out infinite}
+.typingDots i:nth-child(2){animation-delay:.15s}.typingDots i:nth-child(3){animation-delay:.3s}
+@keyframes echoTyping{0%,65%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-3px);opacity:1}}
+.waitingGame{position:fixed;right:24px;bottom:110px;width:280px;max-width:calc(100vw - 32px);z-index:35;padding:22px;border-radius:22px;border:1px solid #ff9a365c;background:linear-gradient(145deg,#302018,#131518 65%);color:#fff4e7;box-shadow:0 18px 60px #0008,0 0 25px #ff8c0012;animation:echoGameIn .25s ease-out}
+.waitingGame:focus-visible{outline:2px solid #ffa24b;outline-offset:4px}.waitingGame strong{display:block;font-size:20px;margin:10px 0}.waitingGame p{font-size:12px;line-height:1.5;color:#cfbaaa}.waitingGame .eyebrow{font-size:9px;color:#ffb264;letter-spacing:1.5px}.waitingGame .primary{width:100%;margin-top:10px}.waitingGame .snakeClose{position:absolute;right:8px;top:6px;min-width:32px;padding:4px;font-size:22px;color:#f0d2b9}.snakeScore{display:block;font-size:12px;padding:8px 0;color:#ffd7ae}.snakeBoard{display:block;width:100%;aspect-ratio:1;background:#090d10;border:1px solid #ff9a3633;border-radius:12px}.snakeControls{display:flex;gap:8px;justify-content:center;padding-top:12px}.snakeControls button{background:#ffffff0b;color:#ffc58b;border:1px solid #ff9a3650;border-radius:12px;width:44px;height:42px;touch-action:manipulation}.snakeControls button:active{background:#ff8c0033}
+@keyframes echoGameIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){.waitingGame{right:12px;bottom:100px;width:248px;padding:16px;max-height:calc(100dvh - 160px);overflow:auto}.waitingGame strong{font-size:17px}.waitingGame .snakeBoard{max-height:200px}}
+@media(prefers-reduced-motion:reduce){.typingDots i,.waitingGame{animation:none}}
+html[data-motion="off"] .typingDots i,html[data-motion="off"] .waitingGame{animation:none}

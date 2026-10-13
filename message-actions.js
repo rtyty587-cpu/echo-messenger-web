@@ -1,0 +1,33 @@
+import {doc,collection,query,where,onSnapshot,setDoc,runTransaction,serverTimestamp} from './firebase-firestore.js';
+export function createMessageActions({db,getMe,toast}){
+ let hidden=new Set(),unsubscribe,epoch=0,focusBefore,undoPath,undoTimer;
+ const overlay=document.createElement('div');overlay.className='overlay';overlay.id='messageActionOverlay';overlay.hidden=true;
+ overlay.innerHTML='<section class="settingsPanel messageDialog" role="dialog" aria-modal="true" aria-labelledby="messageActionTitle"><header><h2 id="messageActionTitle">Сообщение</h2><button type="button" class="subtle" id="messageActionClose" aria-label="Закрыть">×</button></header><div class="settingsBody" id="messageActionBody"></div></section>';
+ document.body.append(overlay);const body=document.getElementById('messageActionBody'),title=document.getElementById('messageActionTitle');
+ const undo=document.createElement('div');undo.className='messageUndo';undo.hidden=true;undo.setAttribute('role','status');const undoText=document.createElement('span'),undoButton=document.createElement('button');undoText.textContent='Удалено только у вас';undoButton.className='subtle';undoButton.textContent='Отменить';undo.append(undoText,undoButton);document.body.append(undo);
+ function close(){overlay.hidden=true;body.replaceChildren();focusBefore?.isConnected&&focusBefore.focus();focusBefore=null}
+ document.getElementById('messageActionClose').onclick=close;
+ overlay.onclick=e=>{if(e.target===overlay)close()};overlay.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();close()}});
+ function error(e){toast(e.code==='permission-denied'?'Действие отклонено сервером. Нужны обновлённые правила сообщений Firebase.':e.message||'Не удалось выполнить действие.')}
+ function online(){if(!getMe())throw Error('Войдите в аккаунт.');if(!navigator.onLine)throw Error('Для этого действия нужен интернет.')}
+ function applyHidden(){for(const node of document.querySelectorAll('[data-message-path]'))node.hidden=hidden.has(node.dataset.messagePath)}
+ function stop(){epoch++;unsubscribe?.();unsubscribe=null;hidden.clear();close();clearTimeout(undoTimer);undo.hidden=true;undoPath=null}
+ function start(uid){stop();const version=epoch;unsubscribe=onSnapshot(query(collection(db,'echo_users',uid,'hiddenMessages'),where('hidden','==',true)),snap=>{if(version!==epoch||getMe()?.uid!==uid)return;hidden=new Set(snap.docs.map(d=>d.data().path));applyHidden()},e=>{if(version===epoch)error(e)})}
+ async function hide(path,value){online();const uid=getMe().uid;await setDoc(doc(db,'echo_users',uid,'hiddenMessages',encodeURIComponent(path)),{path,hidden:value,updatedAt:serverTimestamp()});if(getMe()?.uid!==uid)return;value?hidden.add(path):hidden.delete(path);applyHidden()}
+ undoButton.onclick=async()=>{if(!undoPath)return;undoButton.disabled=true;try{await hide(undoPath,false);undo.hidden=true;undoPath=null}catch(e){error(e)}finally{undoButton.disabled=false}};
+ function button(label,fn,kind='subtle'){const b=document.createElement('button');b.type='button';b.className=kind;b.textContent=label;b.onclick=async()=>{b.disabled=true;try{await fn()}catch(e){error(e)}finally{b.disabled=false}};body.append(b);return b}
+ function show(heading){focusBefore=document.activeElement;title.textContent=heading;body.replaceChildren();overlay.hidden=false;document.getElementById('messageActionClose').focus()}
+ function mount(node,path,data){node.dataset.messagePath=path;node.hidden=hidden.has(path);if(data.deleted){node.replaceChildren();const t=document.createElement('span');t.className='deletedMessage';t.textContent='Сообщение удалено';node.append(t)}else if(data.editedAt){const label=document.createElement('small');label.className='editedLabel';label.textContent='изменено';node.append(label)}
+  const menu=document.createElement('button');menu.type='button';menu.className='messageMenu';menu.textContent='⋯';menu.setAttribute('aria-label','Действия с сообщением');menu.onclick=()=>{
+   show('Сообщение');
+   if(!data.deleted&&data.text)button('Копировать текст',async()=>{await navigator.clipboard.writeText(data.text);close();toast('Текст скопирован')});
+   if(!data.deleted&&data.sender===getMe()?.uid){
+    button('Редактировать',()=>{title.textContent='Редактировать сообщение';body.replaceChildren();const input=document.createElement('textarea');input.id='editMessageText';input.maxLength=4000;input.rows=5;input.value=data.text||'';input.setAttribute('aria-label','Новый текст сообщения');body.append(input);
+     button('Сохранить',async()=>{online();const text=input.value.trim(),uid=getMe().uid;if(!text&&!data.attachment)throw Error('Напишите текст.');if(text===(data.text||'')){close();return}await runTransaction(db,async tx=>{const ref=doc(db,...path.split('/')),snap=await tx.get(ref),current=snap.data();if(!snap.exists()||current.deleted)throw Error('Сообщение уже удалено.');if(current.sender!==uid)throw Error('Можно менять только своё сообщение.');if(current.text!==data.text)throw Error('Сообщение уже изменено на другом устройстве. Откройте его заново.');tx.update(ref,{text,editedAt:serverTimestamp()})});close();toast('Сообщение изменено')},'primary');button('Отмена',close);input.focus()});
+    button('Удалить у всех',()=>{title.textContent='Удалить у всех?';body.replaceChildren();const p=document.createElement('p');p.className='caption';p.textContent='Текст и вложение исчезнут у всех участников. Отменить это действие нельзя.';body.append(p);button('Удалить у всех',async()=>{online();const uid=getMe().uid;await runTransaction(db,async tx=>{const ref=doc(db,...path.split('/')),snap=await tx.get(ref),current=snap.data();if(!snap.exists()||current.deleted)return;if(current.sender!==uid)throw Error('Можно удалить у всех только своё сообщение.');tx.set(ref,{sender:current.sender,createdAt:current.createdAt,text:'',deleted:true,deletedAt:serverTimestamp()})});close();toast('Сообщение удалено у всех')},'danger');button('Отмена',close)},'danger');
+   }
+   button('Удалить только у себя',async()=>{await hide(path,true);close();undoPath=path;undo.hidden=false;clearTimeout(undoTimer);undoTimer=setTimeout(()=>{undo.hidden=true;undoPath=null},15000)});
+  };node.append(menu);
+ }
+ return{mount,start,stop,back:()=>{if(!overlay.hidden){close();return true}return false}};
+}
