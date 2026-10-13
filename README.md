@@ -1,4 +1,4 @@
-# ECHO 1.4
+# ECHO 1.5
 
 Orange messenger for web, Android and Windows. Chats, channels, groups, friend codes, voice calls, profiles, emoji and attachments.
 
