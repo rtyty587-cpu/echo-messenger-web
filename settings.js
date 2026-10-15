@@ -1,15 +1,16 @@
+import {frameClass} from './shop.js';
 import {doc,setDoc} from './firebase-firestore.js';
 export const AVATARS=['🙂','⚡','🦊','🐼','🐱','🚀','🌙','🎧'];
 // Display-only badge pinned to the account UID supplied by the project owner. Never use this for authorization.
 export function drawName(el,data={},uid){el.textContent=data.nickname||'Друг';if(uid==='1tt6F3wcz2cWcEKpWSGEPJuO5nb2'){const badge=document.createElement('span');badge.className='adminBadge';badge.textContent='Админ';badge.setAttribute('aria-label','Администратор ECHO');el.append(document.createTextNode(' '),badge)}}
-export function drawAvatar(el,data={}){el.replaceChildren();if(typeof data.avatar==='string'&&/^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/.test(data.avatar)&&data.avatar.length<70000){const img=document.createElement('img');img.src=data.avatar;img.alt='Аватар';el.append(img)}else el.textContent=AVATARS.includes(data.avatar)?data.avatar:Array.from(data.nickname||'E')[0].toUpperCase()}
+export function drawAvatar(el,data={},uid){for(const cls of [...el.classList])if(cls==='echoFrame'||cls.startsWith('frame-'))el.classList.remove(cls);const frame=frameClass(data.frame,uid);if(frame)el.classList.add(...frame.split(' '));el.replaceChildren();if(typeof data.avatar==='string'&&/^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/.test(data.avatar)&&data.avatar.length<70000){const img=document.createElement('img');img.src=data.avatar;img.alt='Аватар';el.append(img)}else el.textContent=AVATARS.includes(data.avatar)?data.avatar:Array.from(data.nickname||'E')[0].toUpperCase()}
 export function createSettings({db,getMe,getProfile,onProfile,toast}){
  const $=id=>document.getElementById(id),defaults={font:'system',size:15,theme:'dark',accent:'#ff8c00',motion:true,enter:true};let prefs={...defaults},avatar='',photoVersion=0;
  try{prefs={...defaults,...JSON.parse(localStorage.getItem('echo-settings')||'{}')}}catch{}
  const fonts={system:'system-ui',humanist:'"Trebuchet MS",sans-serif',serif:'Georgia,serif',mono:'"Courier New",monospace'};
  function apply(){const root=document.documentElement;root.style.setProperty('--font',fonts[prefs.font]||fonts.system);root.style.setProperty('--message-size',Math.min(22,Math.max(13,Number(prefs.size)||15))+'px');root.style.setProperty('--orange',['#ff8c00','#7c9cff','#49c9a1','#c995ed'].includes(prefs.accent)?prefs.accent:defaults.accent);root.dataset.theme=['dark','light','midnight'].includes(prefs.theme)?prefs.theme:'dark';root.dataset.motion=prefs.motion?'on':'off'}apply();
  function save(){apply();try{localStorage.setItem('echo-settings',JSON.stringify(prefs))}catch{toast('Не удалось сохранить оформление на устройстве.')}}
- function preview(){drawAvatar($('avatarPreview'),{nickname:$('profileName').value,avatar});for(const b of $('avatarPresets').children)b.classList.toggle('selected',b.textContent===avatar)}
+ function preview(){drawAvatar($('avatarPreview'),{nickname:$('profileName').value,avatar,frame:getProfile()?.frame},getMe()?.uid);for(const b of $('avatarPresets').children)b.classList.toggle('selected',b.textContent===avatar)}
  for(const symbol of AVATARS){const b=document.createElement('button');b.type='button';b.textContent=symbol;b.setAttribute('aria-label','Аватар '+symbol);b.onclick=()=>{photoVersion++;avatar=symbol;preview()};$('avatarPresets').append(b)}
  function close(){photoVersion++;$('settingsOverlay').hidden=true;$('openSettings').focus()}
  $('closeSettings').onclick=close;
