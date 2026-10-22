@@ -1,4 +1,4 @@
-import {echoB64} from './crypto-core.js?v=1.10.2';
+import {echoB64} from './crypto-core.js?v=1.10.3';
 export async function openFileSink(name,size){
  if(window.EchoStream||window.chrome?.webview){
   const id=crypto.randomUUID();let waiting=null,closed=false,index=0;

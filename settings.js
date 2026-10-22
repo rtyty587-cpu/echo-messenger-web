@@ -1,7 +1,7 @@
-import {premiumActive,watchPremium} from './premium-state.js?v=1.10.2';
-import {decorateAvatar,profileDetails} from './collectibles.js?v=1.10.2';
-import {frameClass} from './shop.js?v=1.10.2';
-import {doc,setDoc} from './firebase-firestore.js?v=1.10.2';
+import {premiumActive,watchPremium} from './premium-state.js?v=1.10.3';
+import {decorateAvatar,profileDetails} from './collectibles.js?v=1.10.3';
+import {frameClass} from './shop.js?v=1.10.3';
+import {doc,setDoc} from './firebase-firestore.js?v=1.10.3';
 export const AVATARS=['🙂','⚡','🦊','🐼','🐱','🚀','🌙','🎧'];
 // Display-only badge pinned to the account UID supplied by the project owner. Never use this for authorization.
 export function drawName(el,data={},uid){watchPremium(uid,el,()=>drawName(el,data,uid));el.textContent=data.nickname||'Друг';if(data.premiumBadge&&premiumActive(uid)){const premium=document.createElement('span');premium.className='premiumBadge';premium.textContent='PREMIUM';el.append(document.createTextNode(' '),premium)}if(uid==='1tt6F3wcz2cWcEKpWSGEPJuO5nb2'){const badge=document.createElement('span');badge.className='adminBadge';badge.textContent='Админ';badge.setAttribute('aria-label','Администратор ECHO');el.append(document.createTextNode(' '),badge)}}
