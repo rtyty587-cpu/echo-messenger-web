@@ -1,6 +1,6 @@
-import {doc,getDoc,collection,query,where,onSnapshot,setDoc,updateDoc,runTransaction,serverTimestamp} from './firebase-firestore.js';
-import {RTC_CONFIG} from './rtc-config.js';
-import {drawAvatar} from './settings.js';
+import {doc,getDoc,collection,query,where,onSnapshot,setDoc,updateDoc,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.10.2';
+import {RTC_CONFIG} from './rtc-config.js?v=1.10.2';
+import {drawAvatar} from './settings.js?v=1.10.2';
 export function createCalls({db,encryption,getMe,getProfile,getPeer,toast}){
  const $=id=>document.getElementById(id);let session=null,inboxStop=null;
  let audioContext=null;

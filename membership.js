@@ -1,7 +1,7 @@
-import {doc,collection,getDoc,onSnapshot,runTransaction,serverTimestamp} from './firebase-firestore.js';
-import {ECHO_ADMIN,FRAMES} from './shop.js';
-import {COLLECTIBLES} from './collectibles.js';
-import {configurePremium,resetPremium,watchPremium,onPremiumChange,premiumActive,premiumData,premiumEnds} from './premium-state.js';
+import {doc,collection,getDoc,onSnapshot,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.10.2';
+import {ECHO_ADMIN,FRAMES} from './shop.js?v=1.10.2';
+import {COLLECTIBLES} from './collectibles.js?v=1.10.2';
+import {configurePremium,resetPremium,watchPremium,onPremiumChange,premiumActive,premiumData,premiumEnds} from './premium-state.js?v=1.10.2';
 
 export function createMembership({db,getMe,getProfile,toast}){
  const $=id=>document.getElementById(id);let stops=[],busy=false,target=null,generation=0,keys=[];

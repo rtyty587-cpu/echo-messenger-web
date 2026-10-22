@@ -1,6 +1,6 @@
-import {doc,collection,query,orderBy,limit,getDoc,getDocs,onSnapshot,runTransaction,serverTimestamp} from './firebase-firestore.js';
-import {COLLECTIBLES,collectible,nftArt,GIVEAWAY_CHANNEL,profileDetails} from './collectibles.js';
-import {ECHO_ADMIN} from './shop.js';
+import {doc,collection,query,orderBy,limit,getDoc,getDocs,onSnapshot,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.10.2';
+import {COLLECTIBLES,collectible,nftArt,GIVEAWAY_CHANNEL,profileDetails} from './collectibles.js?v=1.10.2';
+import {ECHO_ADMIN} from './shop.js?v=1.10.2';
 export function createEconomy({db,getMe,getProfile,toast}){
  const $=id=>document.getElementById(id);let stops=[],stock={},items={},balance=0,busy=false,epoch=0;
  const section=document.createElement('section');section.className='collectibleSection';section.innerHTML='<div class="eyebrow">ECHO NFT · КОЛЛЕКЦИЯ</div><h2>Маленькие сокровища.</h2><p class="caption">Коллекционные предметы ECHO, без блокчейна. У каждого вида ограниченный тираж продаж. Призы выпускаются отдельно и помечаются как призовые.</p><div id="nftGrid" class="frameGrid"></div>';$('frameShopGrid').after(section);section.hidden=true;const tabs=document.createElement('div');tabs.className='collectionTabs';tabs.innerHTML='<button id="shopFramesTab" type="button" class="subtle active">Рамки</button><button id="shopNftsTab" type="button" class="subtle">Коллекция · 9</button>';$('frameShopGrid').before(tabs);function shopTab(nft){section.hidden=!nft;$('frameShopGrid').hidden=nft;$('shopOverlay').querySelector('.shopIntro').hidden=nft;$('shopFramesTab').classList.toggle('active',!nft);$('shopNftsTab').classList.toggle('active',nft)}$('shopFramesTab').onclick=()=>shopTab(false);$('shopNftsTab').onclick=()=>shopTab(true);

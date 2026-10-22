@@ -1,5 +1,5 @@
-import {premiumActive,onPremiumChange} from './premium-state.js';
-import {doc,runTransaction,onSnapshot,serverTimestamp} from './firebase-firestore.js';
+import {premiumActive,onPremiumChange} from './premium-state.js?v=1.10.2';
+import {doc,runTransaction,onSnapshot,serverTimestamp} from './firebase-firestore.js?v=1.10.2';
 export const ECHO_ADMIN='1tt6F3wcz2cWcEKpWSGEPJuO5nb2';
 export const WEEK_MS=604800000;
 export const FRAMES=Object.freeze([
