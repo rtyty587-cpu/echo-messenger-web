@@ -1,6 +1,6 @@
-import {setupAttachments,attachmentDraft,clearAttachment,clearAllAttachments,renderAttachment} from './attachments.js?v=1.12.1';
-import {doc,getDoc,setDoc,collection,query,where,orderBy,limit,onSnapshot,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.12.1';
-import {drawAvatar,AVATARS} from './settings.js?v=1.12.1';
+import {setupAttachments,attachmentDraft,clearAttachment,clearAllAttachments,renderAttachment} from './attachments.js?v=1.13.0';
+import {doc,getDoc,setDoc,collection,query,where,orderBy,limit,onSnapshot,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.13.0';
+import {drawAvatar,AVATARS} from './settings.js?v=1.13.0';
 export function channelCode(value){const raw=value.trim();if(/^[a-f0-9]{12}$/i.test(raw))return raw.toUpperCase();try{const url=new URL(raw);if(!['https:','http:'].includes(url.protocol))return '';const code=url.searchParams.get('channel');return /^[a-f0-9]{12}$/i.test(code||'')?code.toUpperCase():''}catch{return ''}}
 export function createChannels({db,chatTools,messageActions,typing,encryption,getMe,toast,onOpen,onHome,onSelect=()=>{},onChannel=()=>{}}){
  const $=id=>document.getElementById(id);let listStop,detailStop,postsStop,active=null,preview=null,avatar='',editing=false,generation=0,photoVersion=0;

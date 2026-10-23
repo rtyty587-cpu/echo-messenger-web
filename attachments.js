@@ -1,4 +1,4 @@
-import {validCloudFile} from './file-crypto.js?v=1.12.1';
+import {validCloudFile} from './file-crypto.js?v=1.13.0';
 export const ATTACHMENT_LIMIT=524288;
 let attachmentCloud=null,attachmentToast=()=>{};const transfers=new Map();
 export function configureCloudFiles(service,toast){attachmentCloud=service;attachmentToast=toast}

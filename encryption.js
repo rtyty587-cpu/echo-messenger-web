@@ -1,6 +1,6 @@
-import {doc,getDoc,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.12.1';
-import {echoGenerateIdentity,echoLoadIdentity,echoFingerprint,echoSeal,echoOpen,echoExportBackup,echoImportBackup,echoB64,echoCanonical} from './crypto-core.js?v=1.12.1';
-import {validAttachment,saveAttachment} from './attachments.js?v=1.12.1';
+import {doc,getDoc,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.13.0';
+import {echoGenerateIdentity,echoLoadIdentity,echoFingerprint,echoSeal,echoOpen,echoExportBackup,echoImportBackup,echoB64,echoCanonical} from './crypto-core.js?v=1.13.0';
+import {validAttachment,saveAttachment} from './attachments.js?v=1.13.0';
 
 export function createEncryption({db,getMe,toast,keyStore}){
  let uid=null,identity=null,stored=null,version=0,ready=Promise.resolve(),publicCache=new Map();

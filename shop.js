@@ -1,6 +1,6 @@
-import {claimSeasonReward,activeSeason,decorateSeasonAvatar} from './seasons.js?v=1.12.1';
-import {premiumActive,onPremiumChange} from './premium-state.js?v=1.12.1';
-import {doc,runTransaction,onSnapshot,serverTimestamp} from './firebase-firestore.js?v=1.12.1';
+import {claimSeasonReward,activeSeason,decorateSeasonAvatar} from './seasons.js?v=1.13.0';
+import {premiumActive,onPremiumChange} from './premium-state.js?v=1.13.0';
+import {doc,runTransaction,onSnapshot,serverTimestamp} from './firebase-firestore.js?v=1.13.0';
 export const ECHO_ADMIN='1tt6F3wcz2cWcEKpWSGEPJuO5nb2';
 export const WEEK_MS=604800000;
 export const FRAMES=Object.freeze([

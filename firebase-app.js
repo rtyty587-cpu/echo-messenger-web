@@ -1629,7 +1629,7 @@ function isVersionServiceProvider(provider) {
     return (component === null || component === void 0 ? void 0 : component.type) === "VERSION" /* ComponentType.VERSION */;
 }
 
-const name$p = "./firebase-app.js?v=1.12.1";
+const name$p = "./firebase-app.js?v=1.13.0";
 const version$1 = "0.10.3";
 
 /**
@@ -1648,7 +1648,7 @@ const version$1 = "0.10.3";
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const logger = new Logger('./firebase-app.js?v=1.12.1');
+const logger = new Logger('./firebase-app.js?v=1.13.0');
 
 const name$o = "@firebase/app-compat";
 
