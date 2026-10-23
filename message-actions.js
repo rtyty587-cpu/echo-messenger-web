@@ -1,5 +1,5 @@
-import {doc,collection,query,where,onSnapshot,setDoc,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.11.0';
-export function createMessageActions({db,encryption,getMe,toast}){
+import {doc,collection,query,where,onSnapshot,setDoc,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.12.0';
+export function createMessageActions({db,encryption,getMe,toast,chatTools}){
  let hidden=new Set(),unsubscribe,epoch=0,focusBefore,undoPath,undoTimer;
  const overlay=document.createElement('div');overlay.className='overlay';overlay.id='messageActionOverlay';overlay.hidden=true;
  overlay.innerHTML='<section class="settingsPanel messageDialog" role="dialog" aria-modal="true" aria-labelledby="messageActionTitle"><header><h2 id="messageActionTitle">Сообщение</h2><button type="button" class="subtle" id="messageActionClose" aria-label="Закрыть">×</button></header><div class="settingsBody" id="messageActionBody"></div></section>';
@@ -17,7 +17,7 @@ export function createMessageActions({db,encryption,getMe,toast}){
  undoButton.onclick=async()=>{if(!undoPath)return;undoButton.disabled=true;try{await hide(undoPath,false);undo.hidden=true;undoPath=null}catch(e){error(e)}finally{undoButton.disabled=false}};
  function button(label,fn,kind='subtle'){const b=document.createElement('button');b.type='button';b.className=kind;b.textContent=label;b.onclick=async()=>{b.disabled=true;try{await fn()}catch(e){error(e)}finally{b.disabled=false}};body.append(b);return b}
  function show(heading){focusBefore=document.activeElement;title.textContent=heading;body.replaceChildren();overlay.hidden=false;document.getElementById('messageActionClose').focus()}
- function mount(node,path,data){node.dataset.messagePath=path;node.hidden=hidden.has(path);if(data.deleted){node.replaceChildren();const t=document.createElement('span');t.className='deletedMessage';t.textContent='Сообщение удалено';node.append(t)}else if(data.editedAt){const label=document.createElement('small');label.className='editedLabel';label.textContent='Изменено';node.append(label)}
+ function mount(node,path,data){node.dataset.messagePath=path;node.dataset.messageTime=data.createdAt?.toMillis?.()||0;node.classList.toggle("historyCleared",chatTools?!chatTools.visible(path.split("/").slice(0,2).join("/"),data):false);node.hidden=hidden.has(path);if(data.deleted){node.replaceChildren();const t=document.createElement('span');t.className='deletedMessage';t.textContent='Сообщение удалено';node.append(t)}else if(data.editedAt){const label=document.createElement('small');label.className='editedLabel';label.textContent='Изменено';node.append(label)}
   const menu=document.createElement('button');menu.type='button';menu.className='messageMenu';menu.textContent='⋯';menu.setAttribute('aria-label','Действия с сообщением');menu.onclick=()=>{
    show('Сообщение');
    if(!data.deleted&&data.text)button('Копировать текст',async()=>{await navigator.clipboard.writeText(data.text);close();toast('Текст скопирован')});

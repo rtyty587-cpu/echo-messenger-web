@@ -1,4 +1,4 @@
-import {doc,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.11.0';
+import {doc,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.12.0';
 export const SEASONS=Object.freeze([
  {id:'halloween',name:'Хэллоуин',badge:'HALLOWEEN',symbol:'✦',nft:'nft_lantern',price:6000,supply:350,color:'#ff913c'},
  {id:'newyear',name:'Новый год',badge:'NEW YEAR',symbol:'❄',nft:'nft_snowglobe',price:5500,supply:500,color:'#82eaff'},

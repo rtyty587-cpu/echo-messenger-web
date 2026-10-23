@@ -84,3 +84,4 @@ input,textarea,select{border:1px solid var(--line)!important;border-radius:13px;
 :root[data-motion=off] .premiumOrb{animation:none}@media(prefers-reduced-motion:reduce){.premiumOrb{animation:none}}
 /* Badges keep their intrinsic width in grid/flex chat headers. */
 .premiumBadge,.seasonBadge{width:max-content;max-width:100%;flex:0 0 auto;align-self:flex-start;justify-self:start;box-sizing:border-box}
+.historyCleared{display:none!important}.chatSearchResults{display:grid;gap:10px;max-height:45vh;overflow:auto}.chatSearchResult{white-space:pre-wrap;text-align:left;overflow-wrap:anywhere}.chatToolsButton{font-size:24px;min-width:40px;flex:0 0 auto}.searchHit{outline:2px solid #ff902e;box-shadow:0 0 24px #ff6b3244}#chatToolsOverlay{z-index:10000}

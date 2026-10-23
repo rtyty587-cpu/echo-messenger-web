@@ -1,4 +1,4 @@
-import {echoB64,echoBytes} from './crypto-core.js?v=1.11.0';
+import {echoB64,echoBytes} from './crypto-core.js?v=1.12.0';
 export const CLOUD_LIMIT=500000000,FILE_PART=1048576;
 export function validCloudFile(a){return a?.kind==='cloud-v1'&&/^[a-f0-9-]{36}$/.test(a.id||'')&&typeof a.owner==='string'&&/^[A-Za-z0-9_-]{1,128}$/.test(a.owner)&&typeof a.name==='string'&&a.name.length>0&&a.name.length<=180&&typeof a.mime==='string'&&a.mime.length<=100&&Number.isSafeInteger(a.size)&&a.size>0&&a.size<=CLOUD_LIMIT&&typeof a.key==='string'&&a.key.length===44&&typeof a.nonce==='string'&&a.nonce.length===12}
 export function newCloudFile(file,owner){if(!Number.isSafeInteger(file.size)||file.size<1||file.size>CLOUD_LIMIT)throw Error('Максимум — 500 МБ, при наличии свободного места.');return{kind:'cloud-v1',id:crypto.randomUUID(),owner,name:file.name.replace(/[\x00-\x1f/\\]/g,'_').slice(0,180)||'file',mime:(file.type||'application/octet-stream').slice(0,100),size:file.size,key:echoB64(crypto.getRandomValues(new Uint8Array(32))),nonce:echoB64(crypto.getRandomValues(new Uint8Array(8)))}}
