@@ -1,6 +1,6 @@
-import {setupAttachments,attachmentDraft,clearAttachment,clearAllAttachments,renderAttachment} from './attachments.js?v=1.10.3';
-import {doc,getDoc,setDoc,collection,query,where,orderBy,limit,onSnapshot,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.10.3';
-import {drawAvatar,drawName,AVATARS} from './settings.js?v=1.10.3';
+import {setupAttachments,attachmentDraft,clearAttachment,clearAllAttachments,renderAttachment} from './attachments.js?v=1.11.0';
+import {doc,getDoc,setDoc,collection,query,where,orderBy,limit,onSnapshot,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.11.0';
+import {drawAvatar,drawName,AVATARS} from './settings.js?v=1.11.0';
 export function groupCode(value){const raw=value.trim();if(/^[a-f0-9]{12}$/i.test(raw))return raw.toUpperCase();try{const url=new URL(raw);if(!['https:','http:'].includes(url.protocol))return '';const code=url.searchParams.get('group');return /^[a-f0-9]{12}$/i.test(code||'')?code.toUpperCase():''}catch{return ''}}
 export function createGroups({db,messageActions,typing,encryption,getMe,toast,onOpen,onHome,onSelect=()=>{}}){
  const $=id=>document.getElementById(id);let listStop,detailStop,postsStop,active=null,preview=null,avatar='',editing=false,generation=0,photoVersion=0;
