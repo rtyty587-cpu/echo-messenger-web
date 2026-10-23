@@ -1,4 +1,4 @@
-import {doc,collection,query,where,onSnapshot,setDoc,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.12.0';
+import {doc,collection,query,where,onSnapshot,setDoc,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.12.1';
 export function createMessageActions({db,encryption,getMe,toast,chatTools}){
  let hidden=new Set(),unsubscribe,epoch=0,focusBefore,undoPath,undoTimer;
  const overlay=document.createElement('div');overlay.className='overlay';overlay.id='messageActionOverlay';overlay.hidden=true;

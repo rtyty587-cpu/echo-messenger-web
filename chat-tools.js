@@ -1,4 +1,4 @@
-import {doc,collection,query,where,orderBy,limit,startAfter,getDocs,onSnapshot,setDoc,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.12.0';
+import {doc,collection,query,where,orderBy,limit,startAfter,getDocs,onSnapshot,setDoc,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.12.1';
 export function createChatTools({db,getMe,encryption,toast}){
  let prefs=new Map(),off,version=0,searchVersion=0,returnFocus;
  const overlay=document.createElement('div');overlay.className='overlay';overlay.hidden=true;overlay.id='chatToolsOverlay';
