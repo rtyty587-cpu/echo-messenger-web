@@ -1,4 +1,4 @@
-import {doc,getDoc,onSnapshot} from './firebase-firestore.js?v=1.13.1';
+import {doc,getDoc,onSnapshot} from './firebase-firestore.js?v=1.14.0';
 export function createCoinRewards({db,getMe}){
  const box=document.createElement('div');box.id='coinRewardOverlay';box.className='overlay coinRewardOverlay';box.hidden=true;box.innerHTML='<section class="settingsPanel coinRewardPanel" role="dialog" aria-modal="true" aria-labelledby="coinRewardTitle"><div class="coinRewardIcon" aria-hidden="true">E</div><div class="eyebrow">ECHO COIN</div><h2 id="coinRewardTitle">Монеты получены!</h2><p id="coinRewardAmount"></p><p id="coinRewardReason"></p><button id="coinRewardOkay" class="primary" type="button">Окей</button></section>';document.body.append(box);
  const $=id=>document.getElementById(id);let stopWatch=null,epoch=0,previous=null,queue=[],returnFocus=null;

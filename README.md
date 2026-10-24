@@ -1,5 +1,5 @@
-# ECHO 1.13.1
+# ECHO 1.14.0
 
-Personal encrypted notes with search, edit and delete. Compact beta badges for the selected verified accounts. Echo Coin reward dialog with amount, reason and Okay button.
+Compact settings: Profile, Appearance, Calls, Keys and Protection. My ECHO opens separate Aura, Badge, Collection, Gift and Premium sections; the creator also has an Admin panel. Store shortcuts open the corresponding section directly.
 
-Publish matching Firestore rules from the source distribution to enable notes and beta badges. Notes use the existing account encryption key; restore its backup on other devices.
+Includes encrypted notes, beta badges and Echo Coin reward dialogs. Existing Firestore rules from 1.13 remain compatible; no rule update required.
