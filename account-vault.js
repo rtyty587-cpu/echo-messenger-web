@@ -1,6 +1,6 @@
-import {doc,getDoc,setDoc,serverTimestamp} from './firebase-firestore.js?v=1.15.1';
-import {EmailAuthProvider,reauthenticateWithCredential,updatePassword} from './firebase-auth.js?v=1.15.1';
-import {echoExportBackup,echoImportBackup,echoCanonical} from './crypto-core.js?v=1.15.1';
+import {doc,getDoc,setDoc,serverTimestamp} from './firebase-firestore.js?v=1.15.2';
+import {EmailAuthProvider,reauthenticateWithCredential,updatePassword} from './firebase-auth.js?v=1.15.2';
+import {echoExportBackup,echoImportBackup,echoCanonical} from './crypto-core.js?v=1.15.2';
 
 // Domain separation preserves support for existing six-character account passwords.
 const phrase=password=>'ECHO-account-v1|'+password;

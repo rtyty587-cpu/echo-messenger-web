@@ -1,9 +1,9 @@
-import {createLoginRepair} from './login-repair.js?v=1.15.1';
-import {createAccountVault} from './account-vault.js?v=1.15.1';
-import {createProtection} from './protection.js?v=1.15.1';
-import {doc,getDoc,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.15.1';
-import {echoGenerateIdentity,echoLoadIdentity,echoFingerprint,echoSeal,echoOpen,echoExportBackup,echoImportBackup,echoB64,echoCanonical} from './crypto-core.js?v=1.15.1';
-import {validAttachment,saveAttachment} from './attachments.js?v=1.15.1';
+import {createLoginRepair} from './login-repair.js?v=1.15.2';
+import {createAccountVault} from './account-vault.js?v=1.15.2';
+import {createProtection} from './protection.js?v=1.15.2';
+import {doc,getDoc,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.15.2';
+import {echoGenerateIdentity,echoLoadIdentity,echoFingerprint,echoSeal,echoOpen,echoExportBackup,echoImportBackup,echoB64,echoCanonical} from './crypto-core.js?v=1.15.2';
+import {validAttachment,saveAttachment} from './attachments.js?v=1.15.2';
 
 export function createEncryption({db,getMe,toast,keyStore,lockSession,takeLoginPassword}){
  let uid=null,identity=null,stored=null,version=0,ready=Promise.resolve(),publicCache=new Map(),publicHistory=new Map(),legacy=[];

@@ -1,4 +1,4 @@
-import {doc,collection,onSnapshot,setDoc,serverTimestamp} from './firebase-firestore.js?v=1.15.1';
+import {doc,collection,onSnapshot,setDoc,serverTimestamp} from './firebase-firestore.js?v=1.15.2';
 
 // Presence contains no draft text. Expiry also handles a closed or disconnected sender.
 export function createTyping({db,getMe,now=()=>Date.now(),idleMs=12000,gameAfterMs=20000}){

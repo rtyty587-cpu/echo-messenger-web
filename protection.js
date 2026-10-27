@@ -1,5 +1,5 @@
-import {doc,getDoc,setDoc,deleteDoc,serverTimestamp} from './firebase-firestore.js?v=1.15.1';
-import {echoExportBackup,echoImportBackup,echoCanonical} from './crypto-core.js?v=1.15.1';
+import {doc,getDoc,setDoc,deleteDoc,serverTimestamp} from './firebase-firestore.js?v=1.15.2';
+import {echoExportBackup,echoImportBackup,echoCanonical} from './crypto-core.js?v=1.15.2';
 
 export function createProtection({db,getMe,local,getStored,toast,lockSession,section}){
  const $=id=>document.getElementById(id);

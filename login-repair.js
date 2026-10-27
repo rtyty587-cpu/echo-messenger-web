@@ -1,4 +1,4 @@
-import {EmailAuthProvider,reauthenticateWithCredential} from './firebase-auth.js?v=1.15.1';
+import {EmailAuthProvider,reauthenticateWithCredential} from './firebase-auth.js?v=1.15.2';
 
 export function createLoginRepair({getMe,lockSession}){
  const panel=document.createElement('div');panel.id='loginRepair';panel.className='overlay';panel.hidden=true;
