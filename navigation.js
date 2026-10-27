@@ -5,7 +5,7 @@ export function createNavigation(){
  ['profile','Профиль',[$('profileForm'),$('betaEmail')?.closest('section'),$('logout').parentElement]],
  ['appearance','Оформление',[$('fontChoice').closest('section')]],
  ['calls','Звонки',[$('testMic').closest('section')]],
- ['security','Ключи и защита',[$('encryptionStatus')?.closest('section')]]
+ ['security','Защита',[$('encryptionStatus')?.closest('section')]]
  ]){const page=document.createElement('div');page.id='settingsPage-'+id;page.className='settingsPage';for(const node of nodes)if(node)page.append(node);body.append(page);pages[id]=page;const button=document.createElement('button');button.type='button';button.className='subtle';button.textContent=label;button.id='settingsTab-'+id;button.onclick=()=>selectSettings(id);nav.append(button)}
  function selectSettings(id){for(const [key,page]of Object.entries(pages)){page.hidden=key!==id;$('settingsTab-'+key).classList.toggle('active',key===id);$('settingsTab-'+key).setAttribute('aria-pressed',String(key===id))}body.scrollTop=0}
  $('openSettings').addEventListener('click',()=>selectSettings('profile'));selectSettings('profile');

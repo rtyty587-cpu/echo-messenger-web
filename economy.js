@@ -1,8 +1,8 @@
-import {activeSeason,seasonSale} from './seasons.js?v=1.14.0';
-import {premiumActive,onPremiumChange} from './premium-state.js?v=1.14.0';
-import {doc,collection,query,orderBy,limit,getDoc,getDocs,onSnapshot,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.14.0';
-import {COLLECTIBLES,collectible,nftArt,GIVEAWAY_CHANNEL,profileDetails} from './collectibles.js?v=1.14.0';
-import {ECHO_ADMIN} from './shop.js?v=1.14.0';
+import {activeSeason,seasonSale} from './seasons.js?v=1.15.0';
+import {premiumActive,onPremiumChange} from './premium-state.js?v=1.15.0';
+import {doc,collection,query,orderBy,limit,getDoc,getDocs,onSnapshot,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.15.0';
+import {COLLECTIBLES,collectible,nftArt,GIVEAWAY_CHANNEL,profileDetails} from './collectibles.js?v=1.15.0';
+import {ECHO_ADMIN} from './shop.js?v=1.15.0';
 export function createEconomy({db,getMe,getProfile,toast}){
  const $=id=>document.getElementById(id);let stops=[],stock={},items={},balance=0,busy=false,epoch=0;
  const section=document.createElement('section');section.className='collectibleSection';section.innerHTML='<div class="eyebrow">ECHO NFT · КОЛЛЕКЦИЯ</div><h2>Маленькие сокровища.</h2><p class="caption">Коллекционные предметы ECHO, без блокчейна. У каждого вида ограниченный тираж продаж. Призы выпускаются отдельно и помечаются как призовые.</p><div id="nftGrid" class="frameGrid"></div>';$('frameShopGrid').after(section);section.hidden=true;const tabs=document.createElement('div');tabs.className='collectionTabs';tabs.innerHTML='<button id="shopFramesTab" type="button" class="subtle active">Ауры</button><button id="shopNftsTab" type="button" class="subtle">Коллекция</button>';$('frameShopGrid').before(tabs);function shopTab(nft){section.hidden=!nft;$('frameShopGrid').hidden=nft;$('shopOverlay').querySelector('.shopIntro').hidden=nft;$('shopFramesTab').classList.toggle('active',!nft);$('shopNftsTab').classList.toggle('active',nft)}$('shopFramesTab').onclick=()=>shopTab(false);$('shopNftsTab').onclick=()=>shopTab(true);

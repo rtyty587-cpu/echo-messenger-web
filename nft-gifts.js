@@ -1,6 +1,6 @@
-import {doc,collection,getDoc,onSnapshot,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.14.0';
-import {ECHO_ADMIN} from './shop.js?v=1.14.0';
-import {COLLECTIBLES} from './collectibles.js?v=1.14.0';
+import {doc,collection,getDoc,onSnapshot,runTransaction,serverTimestamp} from './firebase-firestore.js?v=1.15.0';
+import {ECHO_ADMIN} from './shop.js?v=1.15.0';
+import {COLLECTIBLES} from './collectibles.js?v=1.15.0';
 export function createNftGifts({db,getMe,toast}){
  const $=id=>document.getElementById(id);let stopWatch=null,items={},recipient=null,busy=false,epoch=0;
  const section=document.createElement('section');section.className='settingsSection';section.innerHTML='<h3>Подарить NFT</h3><p class="caption">Передайте предмет из своей коллекции другу. Количество спишется у вас и появится у получателя.</p><form id="nftGiftFindForm"><label>Код друга или UID<input id="nftGiftRecipient" required maxlength="128" placeholder="Код получателя"></label><button class="subtle">Найти получателя</button></form><p id="nftGiftTarget" role="status">Сначала выберите получателя.</p><form id="nftGiftForm"><label>Предмет<select id="nftGiftItem"></select></label><label>Количество<input id="nftGiftAmount" type="number" min="1" max="1000" step="1" value="1" required></label><p id="nftGiftSummary" class="caption"></p><button id="sendNftGift" class="primary" disabled>Подарить NFT</button></form><p id="nftGiftHelp" class="caption">Передачу нельзя отменить. Если подарить последний экземпляр, он снимется с вашего аватара и описания. Доступ создателя ко всему оформлению не является запасом предметов: для передачи можно выдать экземпляры через админ-панель.</p>';$('settingsOverlay').querySelector('.settingsBody').append(section);

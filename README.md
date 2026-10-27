@@ -1,5 +1,9 @@
-# ECHO 1.14.0
+# ECHO 1.15
 
-Compact settings: Profile, Appearance, Calls, Keys and Protection. My ECHO opens separate Aura, Badge, Collection, Gift and Premium sections; the creator also has an Admin panel. Store shortcuts open the corresponding section directly.
+Смена пароля аккаунта с подтверждением текущего. Автоматический перенос зашифрованной истории после входа с паролем. Необязательный дополнительный пароль переписок. Ручное управление ключами удалено из интерфейса.
 
-Includes encrypted notes, beta badges and Echo Coin reward dialogs. Existing Firestore rules from 1.13 remain compatible; no rule update required.
+Миграция: войдите в обновлённый ECHO с паролем на устройстве, где история уже читается. Не удаляйте данные этого устройства до переноса. Если исходный ключ уже потерян, старые сообщения восстановить нельзя.
+
+Новые правила: echo_account_vault и echo_protection доступны только владельцу. Пароли не отправляются в Firestore, сохраняются только зашифрованные данные. Смена пароля через внешнюю консоль Firebase не обновляет шифрованную историю автоматически.
+
+Локальные тесты и серверы не запускались по просьбе пользователя.

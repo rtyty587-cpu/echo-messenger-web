@@ -1,4 +1,4 @@
-import {collection,query,where,onSnapshot} from './firebase-firestore.js?v=1.14.0';
+import {collection,query,where,onSnapshot} from './firebase-firestore.js?v=1.15.0';
 export function createHistory({db,getMe,getName,onCallback,toast}){
  const $=id=>document.getElementById(id);let stops=[],incoming=[],outgoing=[],timer,uid='',seen=0;
  function rows(){return [...new Map([...incoming,...outgoing].map(x=>[x.id,x])).values()].sort((a,b)=>(b.createdAt?.toMillis()||0)-(a.createdAt?.toMillis()||0))}
