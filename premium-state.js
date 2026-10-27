@@ -1,4 +1,4 @@
-import {doc,onSnapshot} from './firebase-firestore.js?v=1.15.0';
+import {doc,onSnapshot} from './firebase-firestore.js?v=1.15.1';
 const PREMIUM_ADMIN='1tt6F3wcz2cWcEKpWSGEPJuO5nb2';
 let premiumDb=null,premiumGeneration=0;const premiumStates=new Map(),premiumListeners=new Set(),premiumViewOwners=new WeakMap();
 export function premiumEnds(data){return (data?.startedAt?.toMillis?.()??data?.startedAt?.toDate?.().getTime()??0)+(data?.days||0)*86400000}

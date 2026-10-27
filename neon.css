@@ -94,3 +94,5 @@ input,textarea,select{border:1px solid var(--line)!important;border-radius:13px;
 #protectionCover{position:fixed;inset:0;z-index:2147483000;background:#101012;backdrop-filter:none}#protectionCover .settingsPanel{max-width:440px;width:calc(100% - 32px)}body.privacyLocked> :not(#protectionCover){visibility:hidden!important}#protectionError{color:#ff9980}#protectionForm{display:grid;gap:12px}.encryptionSettings>button{margin-top:12px}
 
 .accountPasswordForm{display:grid;gap:12px;margin-bottom:24px}
+
+#loginRepair{position:fixed;inset:0;z-index:2147483001;background:#101012}#loginRepair .settingsPanel{max-width:480px;width:calc(100% - 32px)}body.loginRepairLocked> :not(#loginRepair){visibility:hidden!important}#repairForm{display:grid;gap:12px}#loginRepair button{margin-top:12px}#repairError{color:#ff9980}

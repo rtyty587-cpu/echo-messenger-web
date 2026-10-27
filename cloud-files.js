@@ -1,7 +1,7 @@
-import {FILE_STORAGE_URL,storageForOwner} from './storage-config.js?v=1.15.0';
-import {echoB64,echoBytes} from './crypto-core.js?v=1.15.0';
-import {CLOUD_LIMIT,FILE_PART,newCloudFile,validCloudFile,filePart} from './file-crypto.js?v=1.15.0';
-import {openFileSink} from './file-sink.js?v=1.15.0';
+import {FILE_STORAGE_URL,storageForOwner} from './storage-config.js?v=1.15.1';
+import {echoB64,echoBytes} from './crypto-core.js?v=1.15.1';
+import {CLOUD_LIMIT,FILE_PART,newCloudFile,validCloudFile,filePart} from './file-crypto.js?v=1.15.1';
+import {openFileSink} from './file-sink.js?v=1.15.1';
 export function createCloudFiles({getMe,encryption,toast,endpoint=null,route=storageForOwner,fetcher=fetch,sinkFactory=openFileSink}){
  let activeDownload=null;const operations=new Set();
  const configured=()=>!endpoint||/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(endpoint);

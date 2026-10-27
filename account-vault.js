@@ -1,6 +1,6 @@
-import {doc,getDoc,setDoc,serverTimestamp} from './firebase-firestore.js?v=1.15.0';
-import {EmailAuthProvider,reauthenticateWithCredential,updatePassword} from './firebase-auth.js?v=1.15.0';
-import {echoExportBackup,echoImportBackup,echoCanonical} from './crypto-core.js?v=1.15.0';
+import {doc,getDoc,setDoc,serverTimestamp} from './firebase-firestore.js?v=1.15.1';
+import {EmailAuthProvider,reauthenticateWithCredential,updatePassword} from './firebase-auth.js?v=1.15.1';
+import {echoExportBackup,echoImportBackup,echoCanonical} from './crypto-core.js?v=1.15.1';
 
 // Domain separation preserves support for existing six-character account passwords.
 const phrase=password=>'ECHO-account-v1|'+password;
@@ -16,5 +16,5 @@ export function createAccountVault({db,getMe,getStored,section,toast}){
  try{await save(user.uid,payload);}catch{/* The next successful login cleans up the previous wrapper. */}
  toast('Пароль аккаунта изменён. Переписки сохранены.');
  }catch(e){toast(e.code==='auth/invalid-credential'?'Текущий пароль не подошёл.':e.code==='auth/too-many-requests'?'Слишком много попыток. Попробуйте позже.':'Не удалось завершить смену пароля. Проверьте соединение и повторите вход.');}finally{button.disabled=false;}};
- return {async load(uid,data,password){if(!password)return data;const snap=await getDoc(doc(db,'echo_account_vault',uid));if(snap.exists()){const recovered=await open(uid,snap.data(),password);if(data&&echoCanonical(data.public)!==echoCanonical(recovered.public))throw Error('История на устройствах различается. Автоматическая замена остановлена.');data=recovered;}if(data)await save(uid,await echoExportBackup(uid,data,phrase(password)));return data;},async enroll(uid,data,password){if(password)await save(uid,await echoExportBackup(uid,data,phrase(password)));},stop(){form.reset();}};
+ return {async box(uid,data,password){return {v:1,payload:await echoExportBackup(uid,data,phrase(password)),previousPayload:'',updatedAt:serverTimestamp()};},async load(uid,data,password){if(!password)return data;const snap=await getDoc(doc(db,'echo_account_vault',uid));if(snap.exists()){const recovered=await open(uid,snap.data(),password);if(data&&echoCanonical(data.public)!==echoCanonical(recovered.public)){const all=[...(recovered.legacy||[]),{v:data.v,enc:data.enc,sign:data.sign,public:data.public},...(data.legacy||[])];recovered.legacy=all.filter((k,i)=>all.findIndex(x=>echoCanonical(x.public)===echoCanonical(k.public))===i);if(recovered.legacy.length>8)throw Error('Слишком много прежних устройств. Старые данные сохранены.');}data=recovered;}if(data)await save(uid,await echoExportBackup(uid,data,phrase(password)));return data;},async enroll(uid,data,password){if(password)await save(uid,await echoExportBackup(uid,data,phrase(password)));},stop(){form.reset();}};
 }

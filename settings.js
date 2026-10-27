@@ -1,8 +1,8 @@
-import {SEASONS,activeSeason,applySeasonTheme,decorateSeasonName,decorateSeasonAvatar,refreshSeasonDecorations} from './seasons.js?v=1.15.0';
-import {premiumActive,watchPremium} from './premium-state.js?v=1.15.0';
-import {decorateAvatar,profileDetails} from './collectibles.js?v=1.15.0';
-import {frameClass} from './shop.js?v=1.15.0';
-import {doc,setDoc,updateDoc} from './firebase-firestore.js?v=1.15.0';
+import {SEASONS,activeSeason,applySeasonTheme,decorateSeasonName,decorateSeasonAvatar,refreshSeasonDecorations} from './seasons.js?v=1.15.1';
+import {premiumActive,watchPremium} from './premium-state.js?v=1.15.1';
+import {decorateAvatar,profileDetails} from './collectibles.js?v=1.15.1';
+import {frameClass} from './shop.js?v=1.15.1';
+import {doc,setDoc,updateDoc} from './firebase-firestore.js?v=1.15.1';
 export const AVATARS=['🙂','⚡','🦊','🐼','🐱','🚀','🌙','🎧'];
 // Display-only badge pinned to the account UID supplied by the project owner. Never use this for authorization.
 export function drawName(el,data={},uid){watchPremium(uid,el,()=>drawName(el,data,uid));el.textContent=data.nickname||'Друг';const admin=uid==='1tt6F3wcz2cWcEKpWSGEPJuO5nb2',chosen=typeof data.nameBadge==='string'?data.nameBadge:admin?'admin':data.betaTester?'beta':data.premiumBadge?'premium':data.seasonBadge||'';if(chosen==='premium'&&premiumActive(uid)){const badge=document.createElement('span');badge.className='premiumBadge';badge.textContent='PREMIUM';el.append(document.createTextNode(' '),badge)}else if(chosen==='admin'&&admin){const badge=document.createElement('span');badge.className='adminBadge';badge.textContent='Админ';badge.setAttribute('aria-label','Администратор ECHO');el.append(document.createTextNode(' '),badge)}else if(chosen==='beta'&&data.betaTester===true){const badge=document.createElement('span');badge.className='betaBadge';badge.textContent='Бета';badge.setAttribute('aria-label','Бета-тестер ECHO');el.append(document.createTextNode(' '),badge)}else decorateSeasonName(el,{seasonBadge:chosen})}
