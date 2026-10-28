@@ -1,5 +1,5 @@
-import {doc,updateDoc} from './firebase-firestore.js?v=1.15.2';
-import {sendEmailVerification,reload} from './firebase-auth.js?v=1.15.2';
+import {doc,updateDoc} from './firebase-firestore.js?v=1.15.4';
+import {sendEmailVerification,reload} from './firebase-auth.js?v=1.15.4';
 const testers=['misha59381@yandex.ru','bobjudenko@gmail.com','ngolomaga@gmail.com'];
 export function betaEligible(user){return testers.includes((user?.email||'').toLowerCase())}
 export function createBeta({db,getMe,getProfile,toast}){

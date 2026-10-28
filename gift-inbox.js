@@ -1,5 +1,5 @@
-import {doc,collection,query,where,getDocs,onSnapshot,setDoc,serverTimestamp} from './firebase-firestore.js?v=1.15.2';
-import {collectible,nftArt} from './collectibles.js?v=1.15.2';
+import {doc,collection,query,where,getDocs,onSnapshot,setDoc,serverTimestamp} from './firebase-firestore.js?v=1.15.4';
+import {collectible,nftArt} from './collectibles.js?v=1.15.4';
 export function createGiftInbox({db,getMe,toast}){
  let unwatch=null,epoch=0,seen=new Set(),gifts=[],current=null,busy=false;
  const overlay=document.createElement('div');overlay.id='giftInbox';overlay.className='overlay giftInbox';overlay.hidden=true;overlay.innerHTML='<section class="settingsPanel giftInboxPanel" role="dialog" aria-modal="true" aria-labelledby="giftInboxTitle"><div class="settingsBody"><div class="eyebrow">ПОДАРОК ДЛЯ ВАС</div><h2 id="giftInboxTitle">Вам подарили NFT!</h2><div id="giftInboxArt" class="nftArt"></div><h3 id="giftInboxItem"></h3><p>Подарок уже в вашей коллекции. Его можно выбрать в настройках профиля.</p><button id="giftInboxThanks" class="primary">Спасибо!</button></div></section>';document.body.append(overlay);const $=id=>document.getElementById(id);
